@@ -50,7 +50,7 @@ const InputSelect = () => {
         <option value=''>Select Audio Source</option>
         {
           devices
-            ?.filter((d, i) => i > 0)
+            // ?.filter((d, i) => i > 0)
             ?.map(d => (
               <option
                 key={d.deviceId}

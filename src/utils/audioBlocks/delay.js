@@ -1,13 +1,13 @@
 import { createIO, createGain, createEq } from './modules'
 
 class Delay {
-  constructor(context, time, feedback = 0.5) {
+  constructor(context, time, feedback = 0.2) {
     createIO(context, this);
     this.feedback = createGain(context, feedback);
     this.delay = context.createDelay();
     this.delay.delayTime.value = time;
     this.dry = createGain(context);
-    this.wet = createGain(context, 0.5);
+    this.wet = createGain(context, 0.2);
     this.filter = createEq(context, 'lowpass', 2000);
 
     this.input.connect(this.dry);

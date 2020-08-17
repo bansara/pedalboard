@@ -1,7 +1,7 @@
 import { createAnalyser, createGain } from './audioBlocks/modules'
-// import Musikvereinsaal from './audioBlocks/IMReverbs/Musikvereinsaal.wav'
 import newContext from './audioCtx'
-import Reverb from './audioBlocks/reverb';
+import Reverb from './audioBlocks/reverb'
+import Delay from './audioBlocks/delay'
 
 const setup = () => {
 
@@ -13,11 +13,21 @@ const setup = () => {
   const analyser = createAnalyser(context)
   const inputGain = createGain(context, 1)
 
-  // TODO - MAKE AN APP
-  // THIS IS HARD CODED
+  // Create Effects
   const reverb = new Reverb(context)
-  inputGain.connect(reverb.input)
+  const delay = new Delay(context, 0.2)
+
+  // Wire them up
+  inputGain.connect(delay.input)
+  delay.output.connect(reverb.input)
   reverb.output.connect(masterVol)
+
+  // Bypass effects so initial state is dry only
+  // Power button connects/disconnects same nodes
+  delay.input.disconnect(delay.filter)
+  reverb.input.disconnect(reverb.wet)
+
+
 
   const signal = {
     ctx: context,
@@ -25,7 +35,7 @@ const setup = () => {
       analyser,
       inputGain
     },
-    effects: [reverb],
+    effects: [delay, reverb],
     output: {
       masterVol
     },

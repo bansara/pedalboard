@@ -1,31 +1,29 @@
 import React, { useContext } from 'react';
 import { Button } from '@chakra-ui/core';
 import Pedalboard from './pedalboardContextProvider';
-import setup from '../utils/initialSetup';
 
 const StartContext = () => {
   const { pb, setPb } = useContext(Pedalboard)
-
-  let signal, inputDevices
+  console.log('pb', pb)
+  let inputDevices
 
   const handleSetup = () => {
-    if (!signal) {
-      signal = setup()
-      navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-        .then(() => {
-          navigator.mediaDevices.enumerateDevices()
-            .then((devices) => {
-              inputDevices = devices.filter((d) => d.kind === 'audioinput')
-              setPb({
-                ...signal,
-                input: {
-                  ...signal.input,
-                  inputDevices
-                }
-              })
+
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+      .then(() => {
+        navigator.mediaDevices.enumerateDevices()
+          .then((devices) => {
+            inputDevices = devices.filter((d) => d.kind === 'audioinput')
+            setPb({
+              ...pb,
+              input: {
+                ...pb.input,
+                inputDevices
+              }
             })
-        })
-    }
+          })
+      })
+
   }
 
   return (
