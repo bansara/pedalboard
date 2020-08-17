@@ -1,0 +1,12 @@
+# HELPER FUNCTION ARGUMENT TYPES
+
+# createX always takes context as the first argument
+createOsc = (context, type = 'sine')
+createGain = (context, level = 1)
+createIO = (context, self, inputGain = 1, outputGain = 1)
+createAnalyser = (context)
+createEq = (context, type = 'peaking', freq = 1000, q = 1)
+
+parseOptions = (options, param, defaultValue)
+lfo = (options = {})
+constructEqBands = (self, bands)

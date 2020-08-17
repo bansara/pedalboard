@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { ThemeProvider, theme, CSSReset } from '@chakra-ui/core'
+import StartContext from './components/startContext';
+import { CtxState, InputSelect, InputMeter } from './components/input';
+import Pedalboard from './components/pedalboardContextProvider';
+
 import './App.css';
 
 function App() {
+  const [pb, setPb] = useState(null)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Pedalboard.Provider value={{ pb, setPb }}>
+        <ThemeProvider theme={theme}>
+          <CSSReset />
+          <StartContext />
+          <CtxState />
+          <InputSelect />
+          <InputMeter />
+        </ThemeProvider>
+      </Pedalboard.Provider>
+
     </div>
   );
 }
