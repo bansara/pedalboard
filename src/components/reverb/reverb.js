@@ -1,5 +1,4 @@
-import React, { useState, useContext, useRef } from 'react';
-import { Flex } from '@chakra-ui/core'
+import React, { useState, useContext, useRef } from 'react'
 import Pedalboard from '../pedalboardContextProvider'
 import irSamples from './IR'
 import Reverb from '../../utils/audioBlocks/reverb'
@@ -25,7 +24,6 @@ const ConvolutionReverb = () => {
         verb.current = pb.effects.find(vb => vb instanceof Reverb)
       }
       index.current = pb.effects.indexOf(verb.current)
-      console.log(index.current)
       const newVerb = new Reverb(pb.ctx, sample)
       verb.current.output.disconnect()
 
@@ -46,14 +44,6 @@ const ConvolutionReverb = () => {
           verb.current.output.connect(pb.effects[index.current + 1].input)
         }
       }
-
-
-      // TODO logic for plugging and uplugging depending on index
-
-      // if(index === 0) {
-      // }
-      // console.log(sample.name)
-
     }
   }
 
@@ -92,15 +82,8 @@ const ConvolutionReverb = () => {
     setOn(!on)
   }
   return (
-    <Flex
-      justify='space-between'
-      align='center'
-      wrap='wrap'
-      p='1em'
-      bg='var(--dark)'
-      border='1px solid var(--black)'
-    >
-      <div>
+    <div className='rack'>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <PowerBtn on={on} handlePower={handlePower} />
         <select
           style={{ color: 'var(--dark)', height: '2em' }}
@@ -114,16 +97,13 @@ const ConvolutionReverb = () => {
           }
         </select>
       </div>
-      <Flex
-        flexGrow='1'
-        justify='space-around'
-      >
+      <div className='rackRt'>
         <Range name='Dry' min='0' max='1' value={dry} onChange={setDryLevel} />
         <Range name='Wet' min='0' max='1' value={wet} onChange={setWetLevel} />
         <Range name='Low cut' min='50' max='500' value={lowCut} onChange={setLowCutFreq} />
         <Range name='High cut' min='1000' max='5000' value={highCut} onChange={setHighCutFreq} />
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 }
 

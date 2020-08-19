@@ -17,9 +17,9 @@ export const createGain = (context, level = 1) => {
   return gain
 }
 
-export const lfo = (options = {}) => {
-  const lfo = createOsc()
-  const output = createGain()
+export const lfo = (context, options = {}) => {
+  const lfo = createOsc(context)
+  const output = createGain(context)
   lfo.frequency.value = parseOptions(options, 'frequency', 5)
   output.gain.value = parseOptions(options, 'gain', 1)
   lfo.connect(output)

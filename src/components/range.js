@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Flex } from '@chakra-ui/core'
+import { Flex } from '@chakra-ui/core'
 
 const Range = ({ onChange, value, min, max, name }) => {
   return (
@@ -11,9 +11,6 @@ const Range = ({ onChange, value, min, max, name }) => {
       align='center'
       color='var(--blue)'
     >
-      {/* <Flex
-      > */}
-      {/* </Flex> */}
       <input
         type='range'
         min={min}
@@ -24,8 +21,8 @@ const Range = ({ onChange, value, min, max, name }) => {
         style={{ width: '4em' }}
       // className='vertical'
       />
-      <Text size='sm' w='4em' h='1.5em' bg='var(--dark)'>{Number(value).toFixed(2)}</Text>
-      <Text size='xs' w='100%' h='1.5em'>{name}</Text>
+      <p className='label'>{Number(value).toFixed(2)}</p>
+      <p className='label'>{name}</p>
     </Flex>
   );
 }

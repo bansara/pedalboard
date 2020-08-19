@@ -8,16 +8,24 @@ const InputSelect = () => {
 
   useEffect(() => {
     setDevices(pb?.input?.inputDevices)
-    console.log('input', pb)
   }, [pb])
-  useEffect(() => console.dir(input), [input])
 
   const handleInput = (e) => {
-    console.log(pb)
     setInput(e.target.value)
     const selectedDevice = pb.input.inputDevices.find(d => d.deviceId === e.target.value)
+    console.log('selected device', selectedDevice)
     if (selectedDevice) {
-      navigator.mediaDevices.getUserMedia({ audio: { deviceId: selectedDevice.deviceId }, video: false })
+      const constraints = {
+        audio: {
+          deviceId: selectedDevice.deviceId,
+          echoCancellation: false,
+          noiseSuppression: false,
+          autoGainControl: false,
+          sampleSize: 16
+        },
+        video: false
+      }
+      navigator.mediaDevices.getUserMedia(constraints)
         .then(media => {
           const source = pb.ctx.createMediaStreamSource(media);
           if (!pb.input.source) {
@@ -30,7 +38,7 @@ const InputSelect = () => {
             source.connect(pb.input.inputGain)
             source.connect(pb.input.analyser)
           }
-          setPb({ ...pb, inputSource: pb.inputSource })
+          setPb({ ...pb })
         })
     } else {
       if (pb.input.source) {

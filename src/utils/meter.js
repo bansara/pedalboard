@@ -18,14 +18,14 @@ export const draw = (canvas, analyser, dataArray) => {
   // calculate RMS-ish level that emphasizes bass
   const l = dataArray.length
   const arraySum = dataArray.reduce((a, c, i) => a + (c * (l / (i + 1))), 0) / dataArray.length
-  // 100 scales the bar to fit the canvas
-  barWidth = Math.sqrt(arraySum * 100)
+  // scale the bar to fit the canvas
+  barWidth = Math.sqrt(arraySum * 121)
 
   // draw the bar
   const gr = canvasCtx.createLinearGradient(0, 0, WIDTH, 0)
-  gr.addColorStop(0, "rgba(0,255,0,1)")
-  gr.addColorStop(0.6, "rgba(224,224,63,1)")
-  gr.addColorStop(1, "rgba(255,0,0,1)")
+  gr.addColorStop(0, "rgba(36, 178, 115, 1)")
+  gr.addColorStop(0.7, "rgba(203, 234, 45, 1)")
+  gr.addColorStop(1, "rgba(234 , 133, 45, 1)")
   canvasCtx.fillStyle = gr
   canvasCtx.fillRect(0, 0, barWidth, HEIGHT)
 } 

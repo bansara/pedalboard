@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Text } from '@chakra-ui/core';
 import Pedalboard from '../pedalboardContextProvider';
 
 const CtxState = () => {
@@ -7,12 +6,11 @@ const CtxState = () => {
   return (
     <div>
       {
-        <Text
-          fontSize="xs"
-          color={pb?.ctx?.state === 'running' ? 'var(--green)' : 'var(--red)'}
+        <p
+          className={`label ${pb?.ctx?.state === 'running' ? 'green' : 'red'}`}
         >
           {pb?.ctx?.state || 'deactivated'}
-        </Text>
+        </p>
       }
     </div>
   );

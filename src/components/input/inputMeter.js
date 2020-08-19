@@ -8,8 +8,7 @@ const InputMeter = () => {
 
   useEffect(() => {
     if (!connected && pb?.input?.analyser && pb?.input?.source) {
-      console.log('analyser', pb.input.analyser)
-      console.log('inputSource', pb.input.source)
+
       const bufferLength = 32
       const dataArray = new Uint8Array(bufferLength)
       const canvas = document.getElementById('inputMeter')

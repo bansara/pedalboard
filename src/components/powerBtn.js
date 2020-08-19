@@ -1,17 +1,19 @@
 import React from 'react'
-import { IconButton } from '@chakra-ui/core'
+import { FiPower } from 'react-icons/fi'
 
 const PowerBtn = ({ on, handlePower }) => {
   return (
-    <IconButton
-      size='sm'
-      variant='outline'
-      color={on ? 'var(--green)' : 'var(--red)'}
-      borderColor={on ? 'var(--green)' : 'var(--red)'}
-      icon={on ? 'sun' : 'close'}
-      marginRight='2em'
-      onClick={handlePower}
-    />
+    <div style={{ marginRight: '2em' }}>
+      <button
+        className='power'
+        onClick={handlePower}
+      >
+        <FiPower
+          color={on ? 'var(--green)' : 'var(--red)'}
+          className='powerBtn'
+        />
+      </button>
+    </div>
   )
 }
 
