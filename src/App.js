@@ -10,24 +10,29 @@ import {
 } from './components/effects'
 
 import Pedalboard from './components/pedalboardContextProvider'
+import Preset from './components/presetContextProvider'
 import setup from './utils/initialSetup'
+import { defaultSettings } from './utils/defaultSettings'
 
 import './App.css'
 
 function App() {
   const [pb, setPb] = useState(setup())
+  const [preset, setPreset] = useState(defaultSettings)
   return (
     <div className="App">
       <Pedalboard.Provider value={{ pb, setPb }}>
-        {/* <ThemeProvider theme={theme}> */}
-        {/* <CSSReset /> */}
-        <StartContext />
-        <InputEQ />
-        <Distortion />
-        <Chorus />
-        <AnalogDelay />
-        <ConvolutionReverb />
-        {/* </ThemeProvider> */}
+        <Preset.Provider value={{ preset, setPreset }}>
+          {/* <ThemeProvider theme={theme}> */}
+          {/* <CSSReset /> */}
+          <StartContext />
+          <InputEQ />
+          <Distortion />
+          <Chorus />
+          <AnalogDelay />
+          <ConvolutionReverb />
+          {/* </ThemeProvider> */}
+        </Preset.Provider>
       </Pedalboard.Provider>
 
     </div>

@@ -1,27 +1,66 @@
-import React, { useState, useContext, useRef } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import Pedalboard from '../pedalboardContextProvider'
+import Preset from '../presetContextProvider'
 import GraphicEQ from '../../utils/audioBlocks/graphicEQ'
 import Range from '../range'
 
 const InputEQ = () => {
   const { pb } = useContext(Pedalboard)
-  const eq = useRef(pb.effects.find(fx => fx instanceof GraphicEQ));
+  const { preset } = useContext(Preset)
+  const { graphicEQ: geq } = preset
+  const eq = pb?.effects?.find(fx => fx instanceof GraphicEQ)
 
-  const [eq62, setEq62] = useState(0)
-  const [eq125, setEq125] = useState(0)
-  const [eq250, setEq250] = useState(0)
-  const [eq500, setEq500] = useState(0)
-  const [eq1000, setEq1000] = useState(0)
-  const [eq2000, setEq2000] = useState(0)
-  const [eq4000, setEq4000] = useState(0)
-  const [eq8000, setEq8000] = useState(0)
+  const [eq62, setEq62] = useState(geq.band62)
+  const [eq125, setEq125] = useState(geq.band125)
+  const [eq250, setEq250] = useState(geq.band250)
+  const [eq500, setEq500] = useState(geq.band500)
+  const [eq1000, setEq1000] = useState(geq.band1000)
+  const [eq2000, setEq2000] = useState(geq.band2000)
+  const [eq4000, setEq4000] = useState(geq.band4000)
+  const [eq8000, setEq8000] = useState(geq.band8000)
+
+  useEffect(() => {
+    console.log('useEffect')
+    for (let band in preset.graphicEQ) {
+      if (preset.graphicEQ[band] !== eq[band].gain.value) {
+        console.log('if')
+        eq.setValue(band, 'gain', preset.graphicEQ[band])
+      }
+      switch (band) {
+        case 'band62':
+          setEq62(geq.band62)
+          break
+        case 'band125':
+          setEq125(geq.band125)
+          break
+        case 'band250':
+          setEq250(geq.band250)
+          break
+        case 'band500':
+          setEq500(geq.band500)
+          break
+        case 'band1000':
+          setEq1000(geq.band1000)
+          break
+        case 'band2000':
+          setEq2000(geq.band2000)
+          break
+        case 'band4000':
+          setEq4000(geq.band4000)
+          break
+        case 'band8000':
+          setEq8000(geq.band8000)
+          break
+        default:
+          continue
+      }
+    }
+  }, [preset, eq, geq])
 
   const setEq = (e, band, onChange) => {
     const level = e.target.value
-    if (!eq.current) {
-      eq.current = pb.input.find(fx => fx instanceof GraphicEQ)
-    }
-    eq.current.setValue(band, 'gain', level)
+    eq.setValue(band, 'gain', level)
+
     onChange(level)
   }
 

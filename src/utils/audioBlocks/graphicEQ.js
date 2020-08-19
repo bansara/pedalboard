@@ -18,7 +18,7 @@ class GraphicEQ {
     this.band8000.connect(this.output)
   }
   setValue = (band, param, level) => {
-    this[band][param].setValueAtTime(level, this.context.currentTime)
+    this[band][param].linearRampToValueAtTime(level, this.context.currentTime + 0.3)
   }
 }
 
