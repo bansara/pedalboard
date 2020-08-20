@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useCallback } from 'react'
 import Pedalboard from '../pedalboardContextProvider'
 import Preset from '../presetContextProvider'
 import GraphicEQ from '../../utils/audioBlocks/graphicEQ'
@@ -19,61 +19,54 @@ const InputEQ = () => {
   const [eq4000, setEq4000] = useState(geq.band4000)
   const [eq8000, setEq8000] = useState(geq.band8000)
 
+  const setEq = useCallback((level, band, onChange) => {
+    eq.setValue(band, 'gain', level)
+    onChange(level)
+  }, [eq])
+
   useEffect(() => {
-    console.log('useEffect')
     for (let band in preset.graphicEQ) {
-      if (preset.graphicEQ[band] !== eq[band].gain.value) {
-        console.log('if')
-        eq.setValue(band, 'gain', preset.graphicEQ[band])
-      }
       switch (band) {
         case 'band62':
-          setEq62(geq.band62)
+          setEq(geq.band62, band, setEq62)
           break
         case 'band125':
-          setEq125(geq.band125)
+          setEq(geq.band125, band, setEq125)
           break
         case 'band250':
-          setEq250(geq.band250)
+          setEq(geq.band250, band, setEq250)
           break
         case 'band500':
-          setEq500(geq.band500)
+          setEq(geq.band500, band, setEq500)
           break
         case 'band1000':
-          setEq1000(geq.band1000)
+          setEq(geq.band1000, band, setEq1000)
           break
         case 'band2000':
-          setEq2000(geq.band2000)
+          setEq(geq.band2000, band, setEq2000)
           break
         case 'band4000':
-          setEq4000(geq.band4000)
+          setEq(geq.band4000, band, setEq4000)
           break
         case 'band8000':
-          setEq8000(geq.band8000)
+          setEq(geq.band8000, band, setEq8000)
           break
         default:
           continue
       }
     }
-  }, [preset, eq, geq])
-
-  const setEq = (e, band, onChange) => {
-    const level = e.target.value
-    eq.setValue(band, 'gain', level)
-
-    onChange(level)
-  }
+  }, [preset, eq, geq, setEq])
 
   return (
     <div className='rack'>
-      <Range name='62.5 Hz' min='-12' max='12' value={eq62} onChange={(e) => setEq(e, 'band62', setEq62)} />
-      <Range name='125 Hz' min='-12' max='12' value={eq125} onChange={(e) => setEq(e, 'band125', setEq125)} />
-      <Range name='250 Hz' min='-12' max='12' value={eq250} onChange={(e) => setEq(e, 'band250', setEq250)} />
-      <Range name='500 Hz' min='-12' max='12' value={eq500} onChange={(e) => setEq(e, 'band500', setEq500)} />
-      <Range name='1000 Hz' min='-12' max='12' value={eq1000} onChange={(e) => setEq(e, 'band1000', setEq1000)} />
-      <Range name='2000 Hz' min='-12' max='12' value={eq2000} onChange={(e) => setEq(e, 'band2000', setEq2000)} />
-      <Range name='4000 Hz' min='-12' max='12' value={eq4000} onChange={(e) => setEq(e, 'band4000', setEq4000)} />
-      <Range name='8000 Hz' min='-12' max='12' value={eq8000} onChange={(e) => setEq(e, 'band8000', setEq8000)} />
+      <Range name='62.5 Hz' min='-12' max='12' value={eq62} onChange={(e) => setEq(e.target.value, 'band62', setEq62)} />
+      <Range name='125 Hz' min='-12' max='12' value={eq125} onChange={(e) => setEq(e.target.value, 'band125', setEq125)} />
+      <Range name='250 Hz' min='-12' max='12' value={eq250} onChange={(e) => setEq(e.target.value, 'band250', setEq250)} />
+      <Range name='500 Hz' min='-12' max='12' value={eq500} onChange={(e) => setEq(e.target.value, 'band500', setEq500)} />
+      <Range name='1000 Hz' min='-12' max='12' value={eq1000} onChange={(e) => setEq(e.target.value, 'band1000', setEq1000)} />
+      <Range name='2000 Hz' min='-12' max='12' value={eq2000} onChange={(e) => setEq(e.target.value, 'band2000', setEq2000)} />
+      <Range name='4000 Hz' min='-12' max='12' value={eq4000} onChange={(e) => setEq(e.target.value, 'band4000', setEq4000)} />
+      <Range name='8000 Hz' min='-12' max='12' value={eq8000} onChange={(e) => setEq(e.target.value, 'band8000', setEq8000)} />
     </div>
   );
 }

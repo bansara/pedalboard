@@ -1,68 +1,77 @@
-import React, { useState, useContext, useRef } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Flex } from '@chakra-ui/core'
 import Pedalboard from '../pedalboardContextProvider'
+import Preset from '../presetContextProvider'
+
 import Delay from '../../utils/audioBlocks/delay'
-import Flanger from '../../utils/audioBlocks/flanger'
 import Range from '../range'
 import PowerBtn from '../powerBtn'
 
 const AnalogDelay = () => {
   const { pb } = useContext(Pedalboard)
-  const dly = useRef(pb.effects.find(fx => fx instanceof Delay && !(fx instanceof Flanger)));
+  const { preset } = useContext(Preset)
+  const { delay } = preset
+  const dly = pb.effects.find(fx => fx instanceof Delay)
   const [on, setOn] = useState(false)
-  const [delay, setDelay] = useState(0.3) // in seconds
+  const [dlyTime, setDlyTime] = useState(0.3) // in seconds
   const [feedback, setFeedback] = useState(0.3) // 20%
   const [filter, setFilter] = useState(2000) // Lowpass freq in Hz
   const [dry, setDry] = useState(1) // 100%
   const [wet, setWet] = useState(0.3) // 20%
 
-  const setDelayTime = (e) => {
-    const time = e.target.value
-    // if (!dly.current) {
-    //   dly.current = pb.effects.find(fx => fx instanceof Delay && !(fx instanceof Flanger))
-    // }
-    setDelay(time)
-    dly.current.delay.delayTime.linearRampToValueAtTime(time, pb.ctx.currentTime + 0.3)
+  const setDelayTime = (time) => {
+    setDlyTime(time)
+    dly.delay.delayTime.linearRampToValueAtTime(time, pb.ctx.currentTime + 0.3)
   }
-  const setFeedbackLevel = (e) => {
-    const level = e.target.value
-    // if (!dly.current) {
-    //   dly.current = pb.effects.find(fx => fx instanceof Delay)
-    // }
+  const setFeedbackLevel = (level) => {
     setFeedback(level)
-    dly.current.feedback.gain.setValueAtTime(level, pb.ctx.currentTime)
+    dly.feedback.gain.setValueAtTime(level, pb.ctx.currentTime)
   }
-  const setFilterFreq = (e) => {
-    const freq = e.target.value
-    // if (!dly.current) {
-    //   dly.current = pb.effects.find(fx => fx instanceof Delay)
-    // }
+  const setFilterFreq = (freq) => {
     setFilter(freq)
-    dly.current.filter.frequency.setValueAtTime(freq, pb.ctx.currentTime)
+    dly.filter.frequency.setValueAtTime(freq, pb.ctx.currentTime)
   }
-  const setDryLevel = (e) => {
-    const level = e.target.value
-    // if (!dly.current) {
-    //   dly.current = pb.effects.find(fx => fx instanceof Delay)
-    // }
+  const setDryLevel = (level) => {
     setDry(level)
-    dly.current.dry.gain.setValueAtTime(level, pb.ctx.currentTime)
+    dly.dry.gain.setValueAtTime(level, pb.ctx.currentTime)
   }
-  const setWetLevel = (e) => {
-    const level = e.target.value
-    // if (!dly.current) {
-    //   dly.current = pb.effects.find(fx => fx instanceof Delay)
-    // }
+  const setWetLevel = (level) => {
     setWet(level)
-    dly.current.wet.gain.setValueAtTime(level, pb.ctx.currentTime)
+    dly.wet.gain.setValueAtTime(level, pb.ctx.currentTime)
   }
   const handlePower = () => {
     on
-      ? dly.current.input.disconnect(dly.current.filter)
-      : dly.current.input.connect(dly.current.filter)
+      ? dly.input.disconnect(dly.filter)
+      : dly.input.connect(dly.filter)
 
     setOn(!on)
   }
+
+  useEffect(() => {
+    for (let param in delay) {
+      switch (param) {
+        case 'on':
+          if (on !== delay.on) handlePower()
+          break
+        case 'time':
+          setDelayTime(delay.time)
+        case 'feedback':
+          setFeedbackLevel(delay.feedback)
+          break
+        case 'filter':
+          setFilterFreq(delay.filter)
+          break
+        case 'dry':
+          setDryLevel(delay.dry)
+          break
+        case 'wet':
+          setWetLevel(delay.wet)
+          break
+        default:
+          continue
+      }
+    }
+  }, [pb, preset])
 
   return (
     <Flex
@@ -74,11 +83,11 @@ const AnalogDelay = () => {
       border='1px solid var(--black)'
     >
       <PowerBtn on={on} handlePower={handlePower} />
-      <Range name='Time' min='0.05' max='1' value={delay} onChange={setDelayTime} />
-      <Range name='Feedback' min='0' max='1' value={feedback} onChange={setFeedbackLevel} />
-      <Range name='Filter' min='500' max='10000' value={filter} onChange={setFilterFreq} />
-      <Range name='Dry' min='0' max='1' value={dry} onChange={setDryLevel} />
-      <Range name='Wet' min='0' max='1' value={wet} onChange={setWetLevel} />
+      <Range name='Time' min='0.05' max='1' value={dlyTime} onChange={(e) => setDelayTime(e.target.value)} />
+      <Range name='Feedback' min='0' max='1' value={feedback} onChange={(e) => setFeedbackLevel(e.target.value)} />
+      <Range name='Filter' min='500' max='10000' value={filter} onChange={(e) => setFilterFreq(e.target.value)} />
+      <Range name='Dry' min='0' max='1' value={dry} onChange={(e) => setDryLevel(e.target.value)} />
+      <Range name='Wet' min='0' max='1' value={wet} onChange={(e) => setWetLevel(e.target.value)} />
     </Flex>
   );
 }

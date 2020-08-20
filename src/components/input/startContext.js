@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-import InputSelect from './inputSelect'
-import InputMeter from './inputMeter'
+import { InputSelect, InputMeter } from './index'
 import CtxState from './ctxState'
 import Presets from './presets'
 import Pedalboard from '../pedalboardContextProvider'
@@ -30,7 +29,7 @@ const StartContext = () => {
 
   return (
     <div className='rack' style={{ background: 'var(--black' }}>
-      <div className='flexRow jSpBtw grow'>
+      <div className='flexRow jSpBtw grow aCenter'>
         <button
           className='inputBtn'
           onClick={handleSetup}
@@ -38,8 +37,8 @@ const StartContext = () => {
           Get Inputs
         </button>
         <InputSelect />
+        <InputMeter />
         <Presets />
-        {/* <InputMeter /> */}
       </div>
       <div className='flexRow jSpBtw grow'>
         <CtxState />

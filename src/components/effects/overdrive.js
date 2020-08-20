@@ -1,12 +1,15 @@
-import React, { useState, useContext, useRef } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Pedalboard from '../pedalboardContextProvider'
+import Preset from '../presetContextProvider'
 import Range from '../range'
 import PowerBtn from '../powerBtn'
 import Overdrive from '../../utils/audioBlocks/overdrive'
 
 const Distortion = () => {
   const { pb } = useContext(Pedalboard)
-  const dist = useRef(pb.effects.find(fx => fx instanceof Overdrive));
+  const { preset } = useContext(Preset)
+  const { overdrive } = preset
+  const dist = pb.effects.find(fx => fx instanceof Overdrive)
 
   const [on, setOn] = useState(false)
   const [midFreq, setMidFreq] = useState(720)
@@ -16,55 +19,63 @@ const Distortion = () => {
 
   const handlePower = () => {
     if (on) {
-      dist.current.input.connect(dist.current.output)
-      dist.current.input.disconnect(dist.current.distortion)
+      dist.input.connect(dist.output)
+      dist.input.disconnect(dist.distortion)
     } else {
-      dist.current.input.disconnect(dist.current.output)
-      dist.current.input.connect(dist.current.distortion)
+      dist.input.disconnect(dist.output)
+      dist.input.connect(dist.distortion)
     }
     setOn(!on)
   }
 
-  const setDistortionLevel = (e) => {
-    const level = e.target.value
-    if (!dist.current) {
-      dist.current = pb.effects.find(fx => fx instanceof Overdrive)
-    }
-    dist.current.distortion.gain.setValueAtTime(level, pb.ctx.currentTime)
+  const setDistortionLevel = (level) => {
+    dist.distortion.gain.setValueAtTime(level, pb.ctx.currentTime)
     setDrive(level)
   }
-  const setMidLevel = (e) => {
-    const level = e.target.value
-    if (!dist.current) {
-      dist.current = pb.effects.find(fx => fx instanceof Overdrive)
-    }
-    dist.current.mid.gain.setValueAtTime(level, pb.ctx.currentTime)
+  const setMidLevel = (level) => {
+    dist.mid.gain.setValueAtTime(level, pb.ctx.currentTime)
     setMidGain(level)
   }
-  const setMidFrequency = (e) => {
-    const freq = e.target.value
-    if (!dist.current) {
-      dist.current = pb.effects.find(fx => fx instanceof Overdrive)
-    }
-    dist.current.mid.frequency.setValueAtTime(freq, pb.ctx.currentTime)
+  const setMidFrequency = (freq) => {
+    dist.mid.frequency.setValueAtTime(freq, pb.ctx.currentTime)
     setMidFreq(freq)
   }
-  const setToneFrequency = (e) => {
-    const freq = e.target.value
-    if (!dist.current) {
-      dist.current = pb.effects.find(fx => fx instanceof Overdrive)
-    }
-    dist.current.highCut.frequency.setValueAtTime(freq, pb.ctx.currentTime)
+  const setToneFrequency = (freq) => {
+    dist.highCut.frequency.setValueAtTime(freq, pb.ctx.currentTime)
     setTone(freq)
   }
+
+  useEffect(() => {
+    for (let param in overdrive) {
+      switch (param) {
+        case 'on':
+          if (on !== overdrive.on) handlePower()
+          break
+        case 'drive':
+          setDistortionLevel(overdrive.drive)
+          break
+        case 'midFreq':
+          setMidFrequency(overdrive.midFreq)
+          break
+        case 'midLevel':
+          setMidLevel(overdrive.midLevel)
+          break
+        case 'tone':
+          setToneFrequency(overdrive.tone)
+          break
+        default:
+          continue
+      }
+    }
+  }, [preset, pb])
 
   return (
     <div className='rack'>
       <PowerBtn on={on} handlePower={handlePower} />
-      <Range name='Drive' min='1' max='11.11' value={drive} onChange={setDistortionLevel} />
-      <Range name='Mid Freq' min='400' max='2000' value={midFreq} onChange={setMidFrequency} />
-      <Range name='Mid Level' min='-12' max='12' value={midGain} onChange={setMidLevel} />
-      <Range name='Tone' min='1000' max='12000' value={tone} onChange={setToneFrequency} />
+      <Range name='Drive' min='1' max='11.11' value={drive} onChange={(e) => setDistortionLevel(e.target.value)} />
+      <Range name='Mid Freq' min='400' max='2000' value={midFreq} onChange={(e) => setMidFrequency(e.target.value)} />
+      <Range name='Mid Level' min='-12' max='12' value={midGain} onChange={(e) => setMidLevel(e.target.value)} />
+      <Range name='Tone' min='1000' max='12000' value={tone} onChange={(e) => setToneFrequency(e.target.value)} />
     </div>
   );
 }

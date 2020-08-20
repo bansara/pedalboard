@@ -23,15 +23,12 @@ function App() {
     <div className="App">
       <Pedalboard.Provider value={{ pb, setPb }}>
         <Preset.Provider value={{ preset, setPreset }}>
-          {/* <ThemeProvider theme={theme}> */}
-          {/* <CSSReset /> */}
           <StartContext />
           <InputEQ />
           <Distortion />
           <Chorus />
           <AnalogDelay />
           <ConvolutionReverb />
-          {/* </ThemeProvider> */}
         </Preset.Provider>
       </Pedalboard.Provider>
 
