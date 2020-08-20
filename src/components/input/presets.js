@@ -35,7 +35,6 @@ const Presets = () => {
     <div>
       <button
         className='inputBtn'
-        style={{ margin: '0 0.5em' }}
         onClick={() => handleChange()}
       >
         Load Preset

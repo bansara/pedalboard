@@ -72,10 +72,12 @@ const Distortion = () => {
   return (
     <div className='rack'>
       <PowerBtn on={on} handlePower={handlePower} />
-      <Range name='Drive' min='1' max='11.11' value={drive} onChange={(e) => setDistortionLevel(e.target.value)} />
-      <Range name='Mid Freq' min='400' max='2000' value={midFreq} onChange={(e) => setMidFrequency(e.target.value)} />
-      <Range name='Mid Level' min='-12' max='12' value={midGain} onChange={(e) => setMidLevel(e.target.value)} />
-      <Range name='Tone' min='1000' max='12000' value={tone} onChange={(e) => setToneFrequency(e.target.value)} />
+      <div className='flexRow grow jSpAr'>
+        <Range name='Drive' min='1' max='11.11' value={drive} onChange={(e) => setDistortionLevel(e.target.value)} />
+        <Range name='Mid Freq (Hz)' min='400' max='2000' value={midFreq} onChange={(e) => setMidFrequency(e.target.value)} />
+        <Range name='Mid Level (dB)' min='-12' max='12' value={midGain} onChange={(e) => setMidLevel(e.target.value)} />
+        <Range name='Tone (Hz)' min='1000' max='12000' value={tone} onChange={(e) => setToneFrequency(e.target.value)} />
+      </div>
     </div>
   );
 }

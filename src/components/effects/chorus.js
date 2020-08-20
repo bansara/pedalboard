@@ -69,9 +69,11 @@ const ClassicChorus = () => {
   return (
     <div className='rack'>
       <PowerBtn on={on} handlePower={handlePower} />
-      <Range name='Rate (hz)' min='0.25' max='7' value={rate} onChange={(e) => setLfoRate(e.target.value)} />
-      <Range name='Depth' min='1' max='10' value={depth} onChange={(e) => setLfoDepth(e.target.value)} />
-      <Range name='Delay (ms)' min='1' max='30' value={delay} onChange={(e) => setDlyTime(e.target.value)} />
+      <div className='flexRow grow jSpAr'>
+        <Range name='Rate (hz)' min='0.25' max='7' value={rate} onChange={(e) => setLfoRate(e.target.value)} />
+        <Range name='Depth' min='1' max='10' value={depth} onChange={(e) => setLfoDepth(e.target.value)} />
+        <Range name='Delay (ms)' min='1' max='30' value={delay} onChange={(e) => setDlyTime(e.target.value)} />
+      </div>
     </div>
   );
 }

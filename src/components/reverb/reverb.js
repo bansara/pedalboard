@@ -116,8 +116,8 @@ const ConvolutionReverb = () => {
 
   return (
     <div className='rack'>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <PowerBtn on={on} handlePower={handlePower} />
+      <PowerBtn on={on} handlePower={handlePower} />
+      <div className='flexRow grow jSpAr aCenter'>
         <select
           style={{ color: 'var(--dark)', height: '2em' }}
           value={ir}
@@ -129,12 +129,10 @@ const ConvolutionReverb = () => {
             ))
           }
         </select>
-      </div>
-      <div className='rackRt'>
         <Range name='Dry' min='0' max='1' value={dry} onChange={(e) => setDryLevel(e.target.value)} />
         <Range name='Wet' min='0' max='1' value={wet} onChange={(e) => setWetLevel(e.target.value)} />
-        <Range name='Low cut' min='50' max='500' value={lowCut} onChange={(e) => setLowCutFreq(e.target.value)} />
-        <Range name='High cut' min='1000' max='5000' value={highCut} onChange={(e) => setHighCutFreq(e.target.value)} />
+        <Range name='Low cut (Hz)' min='50' max='500' value={lowCut} onChange={(e) => setLowCutFreq(e.target.value)} />
+        <Range name='High cut (Hz)' min='1000' max='5000' value={highCut} onChange={(e) => setHighCutFreq(e.target.value)} />
       </div>
     </div>
   );

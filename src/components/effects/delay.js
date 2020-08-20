@@ -74,21 +74,16 @@ const AnalogDelay = () => {
   }, [pb, preset])
 
   return (
-    <Flex
-      justify='space-between'
-      align='center'
-      wrap='wrap'
-      p='1em'
-      bg='var(--dark)'
-      border='1px solid var(--black)'
-    >
+    <div className='rack'>
       <PowerBtn on={on} handlePower={handlePower} />
-      <Range name='Time' min='0.05' max='1' value={dlyTime} onChange={(e) => setDelayTime(e.target.value)} />
-      <Range name='Feedback' min='0' max='1' value={feedback} onChange={(e) => setFeedbackLevel(e.target.value)} />
-      <Range name='Filter' min='500' max='10000' value={filter} onChange={(e) => setFilterFreq(e.target.value)} />
-      <Range name='Dry' min='0' max='1' value={dry} onChange={(e) => setDryLevel(e.target.value)} />
-      <Range name='Wet' min='0' max='1' value={wet} onChange={(e) => setWetLevel(e.target.value)} />
-    </Flex>
+      <div className='flexRow grow jSpAr'>
+        <Range name='Time (ms)' min='0.05' max='1' value={dlyTime} onChange={(e) => setDelayTime(e.target.value)} />
+        <Range name='Feedback' min='0' max='1' value={feedback} onChange={(e) => setFeedbackLevel(e.target.value)} />
+        <Range name='Filter (Hz)' min='500' max='10000' value={filter} onChange={(e) => setFilterFreq(e.target.value)} />
+        <Range name='Dry' min='0' max='1' value={dry} onChange={(e) => setDryLevel(e.target.value)} />
+        <Range name='Wet' min='0' max='1' value={wet} onChange={(e) => setWetLevel(e.target.value)} />
+      </div>
+    </div>
   );
 }
 

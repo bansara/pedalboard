@@ -4,7 +4,8 @@ import Pedalboard from '../pedalboardContextProvider';
 const CtxState = () => {
   const { pb } = useContext(Pedalboard);
   return (
-    <div>
+    <div className='flexColumn aCenter'>
+      <p className='label grey'>audio status:</p>
       {
         <p
           className={`label ${pb?.ctx?.state === 'running' ? 'green' : 'red'}`}

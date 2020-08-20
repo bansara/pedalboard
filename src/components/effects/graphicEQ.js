@@ -59,14 +59,18 @@ const InputEQ = () => {
 
   return (
     <div className='rack'>
-      <Range name='62.5 Hz' min='-12' max='12' value={eq62} onChange={(e) => setEq(e.target.value, 'band62', setEq62)} />
-      <Range name='125 Hz' min='-12' max='12' value={eq125} onChange={(e) => setEq(e.target.value, 'band125', setEq125)} />
-      <Range name='250 Hz' min='-12' max='12' value={eq250} onChange={(e) => setEq(e.target.value, 'band250', setEq250)} />
-      <Range name='500 Hz' min='-12' max='12' value={eq500} onChange={(e) => setEq(e.target.value, 'band500', setEq500)} />
-      <Range name='1000 Hz' min='-12' max='12' value={eq1000} onChange={(e) => setEq(e.target.value, 'band1000', setEq1000)} />
-      <Range name='2000 Hz' min='-12' max='12' value={eq2000} onChange={(e) => setEq(e.target.value, 'band2000', setEq2000)} />
-      <Range name='4000 Hz' min='-12' max='12' value={eq4000} onChange={(e) => setEq(e.target.value, 'band4000', setEq4000)} />
-      <Range name='8000 Hz' min='-12' max='12' value={eq8000} onChange={(e) => setEq(e.target.value, 'band8000', setEq8000)} />
+      <div className='flexRow grow jSpAr'>
+        <Range name='62.5 Hz' min='-12' max='12' value={eq62} onChange={(e) => setEq(e.target.value, 'band62', setEq62)} />
+        <Range name='125 Hz' min='-12' max='12' value={eq125} onChange={(e) => setEq(e.target.value, 'band125', setEq125)} />
+        <Range name='250 Hz' min='-12' max='12' value={eq250} onChange={(e) => setEq(e.target.value, 'band250', setEq250)} />
+        <Range name='500 Hz' min='-12' max='12' value={eq500} onChange={(e) => setEq(e.target.value, 'band500', setEq500)} />
+      </div>
+      <div className='flexRow grow jSpAr'>
+        <Range name='1000 Hz' min='-12' max='12' value={eq1000} onChange={(e) => setEq(e.target.value, 'band1000', setEq1000)} />
+        <Range name='2000 Hz' min='-12' max='12' value={eq2000} onChange={(e) => setEq(e.target.value, 'band2000', setEq2000)} />
+        <Range name='4000 Hz' min='-12' max='12' value={eq4000} onChange={(e) => setEq(e.target.value, 'band4000', setEq4000)} />
+        <Range name='8000 Hz' min='-12' max='12' value={eq8000} onChange={(e) => setEq(e.target.value, 'band8000', setEq8000)} />
+      </div>
     </div>
   );
 }

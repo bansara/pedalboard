@@ -28,8 +28,8 @@ const StartContext = () => {
   }
 
   return (
-    <div className='rack' style={{ background: 'var(--black' }}>
-      <div className='flexRow jSpBtw grow aCenter'>
+    <div className='rack jSpBtw' style={{ background: 'var(--black' }}>
+      <div className='flexRow aCenter'>
         <button
           className='inputBtn'
           onClick={handleSetup}
@@ -38,9 +38,11 @@ const StartContext = () => {
         </button>
         <InputSelect />
         <InputMeter />
+      </div>
+      <div>
         <Presets />
       </div>
-      <div className='flexRow jSpBtw grow'>
+      <div className='flexRow jEnd aCenter'>
         <CtxState />
         <button
           className='inputBtn'

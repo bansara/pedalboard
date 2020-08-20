@@ -1,15 +1,13 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/core'
 
 const Range = ({ onChange, value, min, max, name }) => {
   return (
-    <Flex
-      h='100px'
-      textAlign='center'
-      direction='column'
-      justify='space-around'
-      align='center'
-      color='var(--blue)'
+    <div className='flexColumn aCenter jSpBtw'
+      style={{
+        height: '90px',
+        textAlign: 'center',
+        margin: '0.5em'
+      }}
     >
       <input
         type='range'
@@ -19,11 +17,10 @@ const Range = ({ onChange, value, min, max, name }) => {
         step={max && max / 100}
         onChange={onChange}
         style={{ width: '4em' }}
-      // className='vertical'
       />
-      <p className='label'>{Number(value).toFixed(2)}</p>
+      <p className='labelLt'>{Number(value).toFixed(2)}</p>
       <p className='label'>{name}</p>
-    </Flex>
+    </div>
   );
 }
 
