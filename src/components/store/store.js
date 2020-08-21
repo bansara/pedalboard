@@ -15,7 +15,9 @@ const midiReducer = (state = initialState, action) => {
 }
 
 const presetReducer = (state = defaultSettings, action) => {
-  switch (action.msg) {
+  switch (action.type) {
+    case 'CHANGE_PRESET':
+      return action.preset
     default:
       return state
   }
@@ -23,7 +25,7 @@ const presetReducer = (state = defaultSettings, action) => {
 
 const reducer = combineReducers({
   midi: midiReducer,
-  patch: presetReducer
+  preset: presetReducer
 })
 
 const store = createStore(reducer)

@@ -1,14 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { connect } from 'react-redux'
 import Pedalboard from '../pedalboardContextProvider'
-import Preset from '../presetContextProvider'
 import Range from '../range'
 import PowerBtn from '../powerBtn'
 import { Chorus } from '../../utils/audioBlocks'
 
-const ClassicChorus = ({ midi, patch }) => {
+const ClassicChorus = ({ midi, preset }) => {
   const { pb } = useContext(Pedalboard)
-  const { preset } = useContext(Preset)
   const { chorus } = preset
   const cho = pb.effects.find(fx => fx instanceof Chorus)
   const [on, setOn] = useState(false)
@@ -81,6 +79,6 @@ const ClassicChorus = ({ midi, patch }) => {
   );
 }
 
-const mapStateToProps = ({ midi, patch }) => ({ midi, patch })
+const mapStateToProps = ({ midi, preset }) => ({ midi, preset })
 
 export default connect(mapStateToProps)(ClassicChorus);

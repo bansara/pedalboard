@@ -1,12 +1,11 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react'
+import { connect } from 'react-redux'
 import Pedalboard from '../pedalboardContextProvider'
-import Preset from '../presetContextProvider'
 import GraphicEQ from '../../utils/audioBlocks/graphicEQ'
 import Range from '../range'
 
-const InputEQ = () => {
+const InputEQ = ({ midi, preset }) => {
   const { pb } = useContext(Pedalboard)
-  const { preset } = useContext(Preset)
   const { graphicEQ: geq } = preset
   const eq = pb?.effects?.find(fx => fx instanceof GraphicEQ)
 
@@ -75,4 +74,6 @@ const InputEQ = () => {
   );
 }
 
-export default InputEQ;
+const mapStateToProps = ({ midi, preset }) => ({ midi, preset })
+
+export default connect(mapStateToProps)(InputEQ)

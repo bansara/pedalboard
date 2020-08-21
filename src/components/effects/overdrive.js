@@ -1,15 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react'
+import { connect } from 'react-redux'
 import Pedalboard from '../pedalboardContextProvider'
-import Preset from '../presetContextProvider'
 import Range from '../range'
 import PowerBtn from '../powerBtn'
 import Overdrive from '../../utils/audioBlocks/overdrive'
-import { connect } from 'react-redux'
 
 
-const Distortion = ({ midi, patch }) => {
+const Distortion = ({ midi, preset }) => {
   const { pb } = useContext(Pedalboard)
-  const { preset } = useContext(Preset)
   const { overdrive } = preset
   const dist = pb.effects.find(fx => fx instanceof Overdrive)
   const [on, setOn] = useState(false)
@@ -87,6 +85,6 @@ const Distortion = ({ midi, patch }) => {
   );
 }
 
-const mapStateToProps = ({ midi, patch }) => ({ midi, patch })
+const mapStateToProps = ({ midi, preset }) => ({ midi, preset })
 
 export default connect(mapStateToProps)(Distortion);

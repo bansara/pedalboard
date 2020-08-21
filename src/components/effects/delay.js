@@ -2,15 +2,13 @@ import React, { useState, useContext, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import Pedalboard from '../pedalboardContextProvider'
-import Preset from '../presetContextProvider'
 
 import Delay from '../../utils/audioBlocks/delay'
 import Range from '../range'
 import PowerBtn from '../powerBtn'
 
-const AnalogDelay = ({ midi, patch }) => {
+const AnalogDelay = ({ midi, preset }) => {
   const { pb } = useContext(Pedalboard)
-  const { preset } = useContext(Preset)
   const { delay } = preset
   const dly = pb.effects.find(fx => fx instanceof Delay)
   const [on, setOn] = useState(false)
@@ -91,6 +89,6 @@ const AnalogDelay = ({ midi, patch }) => {
   );
 }
 
-const mapStateToProps = ({ midi, patch }) => ({ midi, patch })
+const mapStateToProps = ({ midi, preset }) => ({ midi, preset })
 
 export default connect(mapStateToProps)(AnalogDelay);

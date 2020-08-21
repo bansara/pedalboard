@@ -2,15 +2,13 @@ import React, { useState, useContext, useRef, useEffect, useCallback } from 'rea
 import { connect } from 'react-redux'
 
 import Pedalboard from '../pedalboardContextProvider'
-import Preset from '../presetContextProvider'
 import irSamples from './IR'
 import Reverb from '../../utils/audioBlocks/reverb'
 import Range from '../range'
 import PowerBtn from '../powerBtn'
 
-const ConvolutionReverb = ({ midi, patch }) => {
+const ConvolutionReverb = ({ midi, preset }) => {
   const { pb } = useContext(Pedalboard)
-  const { preset } = useContext(Preset)
   const { reverb } = preset
   const [ir, setIr] = useState('')
   const [dry, setDry] = useState(1) // 100%
@@ -142,6 +140,6 @@ const ConvolutionReverb = ({ midi, patch }) => {
   );
 }
 
-const mapStateToProps = ({ midi, patch }) => ({ midi, patch })
+const mapStateToProps = ({ midi, preset }) => ({ midi, preset })
 
 export default connect(mapStateToProps)(ConvolutionReverb);
