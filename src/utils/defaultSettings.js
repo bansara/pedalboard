@@ -69,7 +69,7 @@ export const classicRock = {
   graphicEQ,
   overdrive: {
     on: true,
-    drive: 2,
+    gain: 2,
     midFreq: 720,
     midLevel: 3.36,
     tone: 7720
@@ -139,7 +139,7 @@ export const psyLead = {
   overdrive: {
     ...overdrive,
     on: true,
-    drive: 8
+    gain: 8
   },
   chorus: {
     on: true,

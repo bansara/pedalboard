@@ -129,7 +129,7 @@ svg {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding: 1em;
+  padding: 0.5em 1em;
   background: var(--dark);
   border: 1px solid var(--black);
 }

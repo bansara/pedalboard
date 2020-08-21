@@ -46,13 +46,14 @@ const Distortion = ({ midi, preset }) => {
   }
 
   useEffect(() => {
+    console.log(overdrive)
     for (let param in overdrive) {
       switch (param) {
         case 'on':
           if (on !== overdrive.on) handlePower()
           break
-        case 'drive':
-          setDistortionLevel(overdrive.drive)
+        case 'gain':
+          setDistortionLevel(overdrive.gain)
           break
         case 'midFreq':
           setMidFrequency(overdrive.midFreq)
