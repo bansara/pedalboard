@@ -123,6 +123,7 @@ export const metal = {
   chorus,
   delay,
   reverb: {
+    ...reverb,
     on: true,
     irIndex: 5
   }
