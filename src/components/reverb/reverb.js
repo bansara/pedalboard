@@ -1,4 +1,6 @@
 import React, { useState, useContext, useRef, useEffect, useCallback } from 'react'
+import { connect } from 'react-redux'
+
 import Pedalboard from '../pedalboardContextProvider'
 import Preset from '../presetContextProvider'
 import irSamples from './IR'
@@ -6,7 +8,7 @@ import Reverb from '../../utils/audioBlocks/reverb'
 import Range from '../range'
 import PowerBtn from '../powerBtn'
 
-const ConvolutionReverb = () => {
+const ConvolutionReverb = ({ midi, patch }) => {
   const { pb } = useContext(Pedalboard)
   const { preset } = useContext(Preset)
   const { reverb } = preset
@@ -114,9 +116,11 @@ const ConvolutionReverb = () => {
     }
   }, [preset, reverb])
 
+  useEffect(() => { if (midi.msg === 72) handlePower() }, [midi])
+
   return (
     <div className='rack'>
-      <PowerBtn on={on} handlePower={handlePower} />
+      <PowerBtn on={on} handlePower={handlePower} name='Reverb' />
       <div className='flexRow grow jSpAr aCenter'>
         <select
           style={{ color: 'var(--dark)', height: '2em' }}
@@ -138,4 +142,6 @@ const ConvolutionReverb = () => {
   );
 }
 
-export default ConvolutionReverb;
+const mapStateToProps = ({ midi, patch }) => ({ midi, patch })
+
+export default connect(mapStateToProps)(ConvolutionReverb);

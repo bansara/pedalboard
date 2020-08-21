@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react'
+import { connect } from 'react-redux'
 import Pedalboard from '../pedalboardContextProvider'
 import Preset from '../presetContextProvider'
 import Range from '../range'
 import PowerBtn from '../powerBtn'
 import { Chorus } from '../../utils/audioBlocks'
 
-const ClassicChorus = () => {
+const ClassicChorus = ({ midi, patch }) => {
   const { pb } = useContext(Pedalboard)
   const { preset } = useContext(Preset)
   const { chorus } = preset
@@ -66,9 +67,11 @@ const ClassicChorus = () => {
     }
   }, [preset, pb])
 
+  useEffect(() => { if (midi.msg === 66) handlePower() }, [midi])
+
   return (
     <div className='rack'>
-      <PowerBtn on={on} handlePower={handlePower} />
+      <PowerBtn on={on} handlePower={handlePower} name='Chorus' />
       <div className='flexRow grow jSpAr'>
         <Range name='Rate (hz)' min='0.25' max='7' value={rate} onChange={(e) => setLfoRate(e.target.value)} />
         <Range name='Depth' min='1' max='10' value={depth} onChange={(e) => setLfoDepth(e.target.value)} />
@@ -78,4 +81,6 @@ const ClassicChorus = () => {
   );
 }
 
-export default ClassicChorus;
+const mapStateToProps = ({ midi, patch }) => ({ midi, patch })
+
+export default connect(mapStateToProps)(ClassicChorus);

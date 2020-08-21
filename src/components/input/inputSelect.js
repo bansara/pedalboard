@@ -31,19 +31,19 @@ const InputSelect = () => {
           if (!pb.input.source) {
             pb.input.source = source
             source.connect(pb.input.inputGain)
-            source.connect(pb.input.analyser)
+            // source.connect(pb.input.analyser)
           } else {
             pb.input.source.disconnect()
             pb.input.source = source
             source.connect(pb.input.inputGain)
-            source.connect(pb.input.analyser)
+            // source.connect(pb.input.analyser)
           }
           setPb({ ...pb })
         })
     } else {
       if (pb.input.source) {
         pb.input.source.disconnect(pb.input.inputGain)
-        pb.input.source.disconnect(pb.input.analyser)
+        // pb.input.source.disconnect(pb.input.analyser)
       }
     }
   }

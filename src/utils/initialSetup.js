@@ -4,7 +4,6 @@ import {
   Reverb,
   Delay,
   Overdrive,
-  // Compressor,
   GraphicEQ,
   Chorus,
 } from './audioBlocks'
@@ -15,7 +14,7 @@ const setup = () => {
   const masterVol = createGain(context, 1)
   masterVol.connect(context.destination)
 
-  const analyser = createAnalyser(context)
+  // const analyser = createAnalyser(context)
   const inputGain = createGain(context, 1)
 
   // Create Effects
@@ -47,7 +46,7 @@ const setup = () => {
   return {
     ctx: context,
     input: {
-      analyser,
+      // analyser,
       inputGain,
       // compressor,
     },

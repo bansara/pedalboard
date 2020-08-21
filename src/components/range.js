@@ -19,7 +19,7 @@ const Range = ({ onChange, value, min, max, name }) => {
         style={{ width: '4em' }}
       />
       <p className='labelLt'>{Number(value).toFixed(2)}</p>
-      <p className='label'>{name}</p>
+      <p className='label sm'>{name}</p>
     </div>
   );
 }

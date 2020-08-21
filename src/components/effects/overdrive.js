@@ -4,13 +4,14 @@ import Preset from '../presetContextProvider'
 import Range from '../range'
 import PowerBtn from '../powerBtn'
 import Overdrive from '../../utils/audioBlocks/overdrive'
+import { connect } from 'react-redux'
 
-const Distortion = () => {
+
+const Distortion = ({ midi, patch }) => {
   const { pb } = useContext(Pedalboard)
   const { preset } = useContext(Preset)
   const { overdrive } = preset
   const dist = pb.effects.find(fx => fx instanceof Overdrive)
-
   const [on, setOn] = useState(false)
   const [midFreq, setMidFreq] = useState(720)
   const [midGain, setMidGain] = useState(0)
@@ -21,11 +22,12 @@ const Distortion = () => {
     if (on) {
       dist.input.connect(dist.output)
       dist.input.disconnect(dist.distortion)
+      setOn(false)
     } else {
       dist.input.disconnect(dist.output)
       dist.input.connect(dist.distortion)
+      setOn(true)
     }
-    setOn(!on)
   }
 
   const setDistortionLevel = (level) => {
@@ -67,11 +69,14 @@ const Distortion = () => {
           continue
       }
     }
-  }, [preset, pb])
+  }, [preset])
+
+  useEffect(() => { if (midi.msg === 60) handlePower() }, [midi])
+
 
   return (
     <div className='rack'>
-      <PowerBtn on={on} handlePower={handlePower} />
+      <PowerBtn on={on} handlePower={handlePower} name='Drive' />
       <div className='flexRow grow jSpAr'>
         <Range name='Drive' min='1' max='11.11' value={drive} onChange={(e) => setDistortionLevel(e.target.value)} />
         <Range name='Mid Freq (Hz)' min='400' max='2000' value={midFreq} onChange={(e) => setMidFrequency(e.target.value)} />
@@ -82,4 +87,6 @@ const Distortion = () => {
   );
 }
 
-export default Distortion;
+const mapStateToProps = ({ midi, patch }) => ({ midi, patch })
+
+export default connect(mapStateToProps)(Distortion);

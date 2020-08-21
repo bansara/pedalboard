@@ -28,7 +28,7 @@ const StartContext = () => {
   }
 
   return (
-    <div className='rack jSpBtw' style={{ background: 'var(--black' }}>
+    <div className='rack jSpBtw' style={{ background: 'var(--black)', padding: '0 ' }}>
       <div className='flexRow aCenter'>
         <button
           className='inputBtn'
@@ -37,7 +37,7 @@ const StartContext = () => {
           Get Inputs
         </button>
         <InputSelect />
-        <InputMeter />
+        {/* <InputMeter /> */}
       </div>
       <div>
         <Presets />

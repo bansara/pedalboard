@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { Flex } from '@chakra-ui/core'
+import { connect } from 'react-redux'
+
 import Pedalboard from '../pedalboardContextProvider'
 import Preset from '../presetContextProvider'
 
@@ -7,7 +8,7 @@ import Delay from '../../utils/audioBlocks/delay'
 import Range from '../range'
 import PowerBtn from '../powerBtn'
 
-const AnalogDelay = () => {
+const AnalogDelay = ({ midi, patch }) => {
   const { pb } = useContext(Pedalboard)
   const { preset } = useContext(Preset)
   const { delay } = preset
@@ -55,6 +56,7 @@ const AnalogDelay = () => {
           break
         case 'time':
           setDelayTime(delay.time)
+          break
         case 'feedback':
           setFeedbackLevel(delay.feedback)
           break
@@ -73,9 +75,11 @@ const AnalogDelay = () => {
     }
   }, [pb, preset])
 
+  useEffect(() => { if (midi.msg === 68) handlePower() }, [midi])
+
   return (
     <div className='rack'>
-      <PowerBtn on={on} handlePower={handlePower} />
+      <PowerBtn on={on} handlePower={handlePower} name='Delay' />
       <div className='flexRow grow jSpAr'>
         <Range name='Time (ms)' min='0.05' max='1' value={dlyTime} onChange={(e) => setDelayTime(e.target.value)} />
         <Range name='Feedback' min='0' max='1' value={feedback} onChange={(e) => setFeedbackLevel(e.target.value)} />
@@ -87,4 +91,6 @@ const AnalogDelay = () => {
   );
 }
 
-export default AnalogDelay;
+const mapStateToProps = ({ midi, patch }) => ({ midi, patch })
+
+export default connect(mapStateToProps)(AnalogDelay);
