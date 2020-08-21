@@ -68,8 +68,10 @@ const Distortion = ({ midi, preset }) => {
           continue
       }
     }
+    // eslint-disable-next-line
   }, [preset])
 
+  // eslint-disable-next-line
   useEffect(() => { if (midi.msg === 60) handlePower() }, [midi])
 
 

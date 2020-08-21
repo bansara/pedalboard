@@ -63,8 +63,10 @@ const ClassicChorus = ({ midi, preset }) => {
           continue
       }
     }
+    // eslint-disable-next-line
   }, [preset, pb])
 
+  // eslint-disable-next-line
   useEffect(() => { if (midi.msg === 66) handlePower() }, [midi])
 
   return (

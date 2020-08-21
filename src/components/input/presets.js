@@ -58,6 +58,7 @@ const Presets = ({ midi, setPreset }) => {
 
   useEffect(() => {
     handleMidiInput(midi.msg)
+    // eslint-disable-next-line
   }, [midi])
 
   return (

@@ -7,6 +7,7 @@ import {
   InputEQ,
   Chorus
 } from './components/effects'
+import Welcome from './components/welcome'
 import Pedalboard from './components/pedalboardContextProvider'
 import setup from './utils/initialSetup'
 import { midiAccess } from './utils/midi'
@@ -14,21 +15,28 @@ import { midiAccess } from './utils/midi'
 
 function App() {
   const [pb, setPb] = useState(setup())
+  const [started, setStarted] = useState(false)
   useEffect(() => {
     midiAccess()
   }, [])
   return (
-    <div className="App">
-      <Pedalboard.Provider value={{ pb, setPb }}>
-        <StartContext />
-        <InputEQ />
-        <Distortion />
-        <Chorus />
-        <AnalogDelay />
-        <ConvolutionReverb />
-      </Pedalboard.Provider>
-
-    </div >
+    <div>
+      {
+        !started ?
+          <Welcome setStarted={setStarted} />
+          :
+          <div className="App">
+            <Pedalboard.Provider value={{ pb, setPb }}>
+              <StartContext />
+              <InputEQ />
+              <Distortion />
+              <Chorus />
+              <AnalogDelay />
+              <ConvolutionReverb />
+            </Pedalboard.Provider>
+          </div >
+      }
+    </div>
   )
 }
 

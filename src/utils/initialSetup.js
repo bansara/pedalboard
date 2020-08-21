@@ -1,4 +1,4 @@
-import { createAnalyser, createGain } from './audioBlocks/modules'
+import { createGain } from './audioBlocks/modules'
 import newContext from './audioCtx'
 import {
   Reverb,

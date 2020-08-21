@@ -71,8 +71,10 @@ const AnalogDelay = ({ midi, preset }) => {
           continue
       }
     }
+    // eslint-disable-next-line
   }, [pb, preset])
 
+  // eslint-disable-next-line
   useEffect(() => { if (midi.msg === 68) handlePower() }, [midi])
 
   return (

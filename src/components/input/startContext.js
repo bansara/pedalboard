@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { InputSelect, InputMeter } from './index'
+import { InputSelect } from './index'
 import CtxState from './ctxState'
 import Presets from './presets'
 import Pedalboard from '../pedalboardContextProvider'
@@ -34,10 +34,9 @@ const StartContext = () => {
           className='inputBtn'
           onClick={handleSetup}
         >
-          Get Inputs
+          Scan Inputs
         </button>
         <InputSelect />
-        {/* <InputMeter /> */}
       </div>
       <div>
         <Presets />

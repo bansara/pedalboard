@@ -112,8 +112,10 @@ const ConvolutionReverb = ({ midi, preset }) => {
           continue
       }
     }
+    // eslint-disable-next-line
   }, [preset, reverb])
 
+  // eslint-disable-next-line
   useEffect(() => { if (midi.msg === 72) handlePower() }, [midi])
 
   return (
