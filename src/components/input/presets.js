@@ -96,10 +96,3 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = ({ midi }) => ({ midi })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Presets)
-
-{/* <option value='default'>Default</option>
-        <option value='classicRock'>Classic Rock</option>
-        <option value='spaceChorus'>Space Chorus</option>
-        <option value='metal'>Metal</option>
-        <option value='psyLead'>Psy Lead</option>
-        <option value='jazz'>Jazzy</option> */}
