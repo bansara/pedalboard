@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef, useEffect, useCallback } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import Pedalboard from '../pedalboardContextProvider'
@@ -10,80 +10,56 @@ import PowerBtn from '../powerBtn'
 const ConvolutionReverb = ({ midi, preset }) => {
   const { pb } = useContext(Pedalboard)
   const { reverb } = preset
-  const [ir, setIr] = useState('')
+  const [ir, setIr] = useState(0)
   const [dry, setDry] = useState(1) // 100%
   const [wet, setWet] = useState(0.5) // 50%
   const [lowCut, setLowCut] = useState(100) // Hz
   const [highCut, setHighCut] = useState(5000) // Hz
   const [on, setOn] = useState(false)
-  const verb = useRef(pb.effects.find(vb => vb instanceof Reverb))
+  let verb = pb.effects.find(vb => vb instanceof Reverb)
 
-  const handleChange = useCallback((idx, isOn) => {
+  const handleChange = (idx, isOn) => {
     const sample = irSamples[idx]
+    const newVerb = new Reverb(pb.ctx, sample)
     setIr(idx)
-    if (pb?.effects) {
-      if (!verb.current) {
-        verb.current = pb.effects.find(vb => vb instanceof Reverb)
-      }
-      if (isOn) {
-        const index = pb.effects.indexOf(verb.current)
-        const newVerb = new Reverb(pb.ctx, sample)
-        verb.current.output.disconnect()
-
-        if (index.current === 0) {
-          pb.input.inputGain.disconnect()
-          verb.current = newVerb
-          pb.effects[index] = newVerb
-          pb.input.inputGain.connect(newVerb.input)
-          newVerb.output.connect(pb.effects[1].input)
-        } else {
-          pb.effects[index - 1].output.disconnect()
-          verb.current = newVerb
-          pb.effects[index] = newVerb
-          pb.effects[index - 1].output.connect(verb.current.input)
-          if (index === pb.effects.length - 1) {
-            verb.current.output.connect(pb.output.masterVol)
-          } else {
-            verb.current.output.connect(pb.effects[index + 1].input)
-          }
-        }
-      }
+    console.log('reverb', reverb)
+    const index = pb.effects.indexOf(verb)
+    verb = newVerb
+    pb.effects[index] = newVerb
+    if (!isOn) {
+      verb.input.disconnect(verb.wet)
     }
-  }, [pb, verb])
+    console.log('ison block')
+    verb.output.disconnect()
 
-  const setDryLevel = useCallback((level) => {
+    pb.effects[index - 1].output.disconnect()
+    pb.effects[index - 1].output.connect(verb.input)
+    verb.output.connect(pb.output.masterVol)
+  }
+
+
+  const setDryLevel = (level) => {
     setDry(level)
-    if (!verb.current) {
-      verb.current = pb.effects.find(vb => vb instanceof Reverb)
-    }
-    verb.current.dry.gain.setValueAtTime(level, pb.ctx.currentTime)
-  }, [verb, pb])
-  const setWetLevel = useCallback((level) => {
+    verb.dry.gain.setValueAtTime(level, pb.ctx.currentTime)
+  }
+  const setWetLevel = (level) => {
     setWet(level)
-    if (!verb.current) {
-      verb.current = pb?.effects?.find(vb => vb instanceof Reverb)
-    }
-    verb.current.wet.gain.setValueAtTime(level, pb.ctx.currentTime)
-  }, [verb, pb])
-  const setLowCutFreq = useCallback((freq) => {
+    verb.wet.gain.setValueAtTime(level, pb.ctx.currentTime)
+  }
+  const setLowCutFreq = (freq) => {
     setLowCut(freq)
-    if (!verb.current) {
-      verb.current = pb?.effects?.find(vb => vb instanceof Reverb)
-    }
-    verb.current.lowCut.frequency.setValueAtTime(freq, pb.ctx.currentTime)
-  }, [verb, pb])
-  const setHighCutFreq = useCallback((freq) => {
+    verb.lowCut.frequency.setValueAtTime(freq, pb.ctx.currentTime)
+  }
+  const setHighCutFreq = (freq) => {
     setHighCut(freq)
-    if (!verb.current) {
-      verb.current = pb?.effects?.find(vb => vb instanceof Reverb)
-    }
-    verb.current.highCut.frequency.setValueAtTime(freq, pb.ctx.currentTime)
-  }, [verb, pb])
+    verb.highCut.frequency.setValueAtTime(freq, pb.ctx.currentTime)
+  }
 
   const handlePower = () => {
+    console.log('power')
     on
-      ? verb.current.input.disconnect(verb.current.wet)
-      : verb.current.input.connect(verb.current.wet)
+      ? verb.input.disconnect(verb.wet)
+      : verb.input.connect(verb.wet)
     setOn(!on)
   }
 
@@ -94,7 +70,9 @@ const ConvolutionReverb = ({ midi, preset }) => {
           if (on !== reverb.on) handlePower()
           break
         case 'irIndex':
-          handleChange(reverb.irIndex, reverb.on)
+          if (reverb.irIndex !== ir) {
+            handleChange(reverb.irIndex, reverb.on)
+          }
           break
         case 'dry':
           setDryLevel(reverb.dry)
@@ -139,7 +117,7 @@ const ConvolutionReverb = ({ midi, preset }) => {
         <Range name='High cut (Hz)' min='1000' max='5000' value={highCut} onChange={(e) => setHighCutFreq(e.target.value)} />
       </div>
     </div>
-  );
+  )
 }
 
 const mapStateToProps = ({ midi, preset }) => ({ midi, preset })
