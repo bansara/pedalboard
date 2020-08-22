@@ -5,6 +5,8 @@ import Compressor from './compressor'
 import GraphicEQ from './graphicEQ'
 import Chorus from './chorus'
 import Flanger from './flanger'
+import Tremolo from './tremolo'
+import Preamp from './preamp'
 
 export {
   Reverb,
@@ -14,4 +16,6 @@ export {
   GraphicEQ,
   Chorus,
   Flanger,
+  Tremolo,
+  Preamp,
 }

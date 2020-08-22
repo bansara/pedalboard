@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
-import { defaultSettings, jazz, classicRock, spaceChorus, metal, psyLead } from '../../utils/defaultSettings'
+import { defaultSettings, jazz, classicRock, spaceChorus, metal, postRock } from '../../utils/defaultSettings'
 import { setPreset } from '../store/actions'
 
 
@@ -13,28 +13,28 @@ const Presets = ({ midi, setPreset }) => {
       note: 120
     },
     {
-      name: 'Classic Rock',
-      data: classicRock,
+      name: 'Space Chorus',
+      data: spaceChorus,
       note: 121
     },
     {
-      name: 'Space Chorus',
-      data: spaceChorus,
+      name: 'Classic Rock',
+      data: classicRock,
       note: 122
     },
     {
-      name: 'Metal',
-      data: metal,
+      name: 'Post Rock',
+      data: postRock,
       note: 123
-    },
-    {
-      name: 'Psy Lead',
-      data: psyLead,
-      note: 124
     },
     {
       name: 'Jazz',
       data: jazz,
+      note: 124
+    },
+    {
+      name: 'Metal',
+      data: metal,
       note: 24
     },
   ]

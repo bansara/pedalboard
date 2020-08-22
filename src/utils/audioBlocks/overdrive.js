@@ -9,7 +9,7 @@ class Overdrive {
     this.output = this.context.createGain()
     this.amount = amount
     this.drive.curve = this.makeDistortionCurve(this.amount)
-    // this.drive.oversample = '4x'
+    this.drive.oversample = '4x'
     this.highCut = createEq(this.context, 'lowpass', 12000, 1)
     this.mid = createEq(this.context, 'peaking', 720)
     this.input.connect(this.distortion)
@@ -19,7 +19,7 @@ class Overdrive {
     this.highCut.connect(this.output)
   }
   makeDistortionCurve(amount) {
-    let k = typeof amount === 'number' ? amount * 10 : 50,
+    let k = typeof amount === 'number' ? amount : 2,
       n_samples = 44100,
       curve = new Float32Array(n_samples),
       deg = Math.PI / 180,
@@ -27,7 +27,7 @@ class Overdrive {
       x;
     for (; i < n_samples; ++i) {
       x = i * 2 / n_samples - 1;
-      curve[i] = (3 + k) * x * 20 * deg / (Math.PI + k * Math.abs(x));
+      curve[i] = (3 + k) * x * 30 * deg / (Math.PI + k * Math.abs(x));
     }
     return curve;
   };

@@ -6,6 +6,7 @@ import {
   Overdrive,
   GraphicEQ,
   Chorus,
+  Preamp
 } from './audioBlocks'
 
 const setup = () => {
@@ -21,14 +22,14 @@ const setup = () => {
   const reverb = new Reverb(context)
   const delay = new Delay(context, 0.3)
   const overdrive = new Overdrive(context, 7.5)
-  // const compressor = new Compressor(context)
+  const preamp = new Preamp(context)
   const graphicEQ = new GraphicEQ(context)
   const chorus = new Chorus(context)
 
   // Wire them up
   inputGain.connect(graphicEQ.input)
-  // compressor.output.connect(graphicEQ.input)
-  graphicEQ.output.connect(overdrive.input)
+  graphicEQ.output.connect(preamp.input)
+  preamp.output.connect(overdrive.input)
   overdrive.output.connect(chorus.input)
   chorus.output.connect(delay.input)
   delay.output.connect(reverb.input)
@@ -46,9 +47,8 @@ const setup = () => {
   return {
     ctx: context,
     input: {
-      // analyser,
+      preamp,
       inputGain,
-      // compressor,
     },
     effects: [graphicEQ, overdrive, chorus, delay, reverb],
     output: {

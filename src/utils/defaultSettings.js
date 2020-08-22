@@ -10,7 +10,7 @@ const graphicEQ = {
 }
 const overdrive = {
   on: false,
-  gain: 5,
+  gain: 2,
   midFreq: 720,
   midLevel: 0,
   tone: 12000
@@ -30,10 +30,10 @@ const delay = {
   wet: 0.3
 }
 const reverb = {
-  on: false,
+  on: true,
   irIndex: 0,
   dry: 1,
-  wet: 0.5,
+  wet: 0.2,
   lowCut: 100,
   highCut: 5000
 }
@@ -69,18 +69,22 @@ export const classicRock = {
   graphicEQ,
   overdrive: {
     on: true,
-    gain: 2,
+    gain: 5,
     midFreq: 720,
     midLevel: 3.36,
     tone: 7720
   },
   chorus,
-  delay,
+  delay: {
+    ...delay,
+    time: 0.25
+  },
   reverb: {
     ...reverb,
     on: true,
     irIndex: 4,
-    highCut: 3950
+    highCut: 3950,
+    wet: 0.5
   }
 }
 
@@ -129,7 +133,7 @@ export const metal = {
   }
 }
 
-export const psyLead = {
+export const postRock = {
   graphicEQ: {
     ...graphicEQ,
     band250: 3,
@@ -140,20 +144,15 @@ export const psyLead = {
   overdrive: {
     ...overdrive,
     on: true,
-    gain: 8
+    gain: 2
   },
-  chorus: {
-    on: true,
-    rate: 0.74,
-    depth: 10,
-    delay: 1.9
-  },
+  chorus,
   delay: {
     ...delay,
     on: true,
-    time: 0.51,
-    feedback: 0.45,
-    wet: 0.41
+    time: 0.4,
+    feedback: 0.5,
+    wet: 0.77
   },
   reverb: {
     ...reverb,
