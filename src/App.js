@@ -9,12 +9,11 @@ import {
 } from './components/effects'
 import Welcome from './components/welcome'
 import Pedalboard from './components/pedalboardContextProvider'
-import setup from './utils/initialSetup'
 import { midiAccess } from './utils/midi'
 
 
 function App() {
-  const [pb, setPb] = useState(setup())
+  const [pb, setPb] = useState(null)
   const [started, setStarted] = useState(false)
   useEffect(() => {
     midiAccess()
@@ -23,7 +22,7 @@ function App() {
     <div>
       {
         !started ?
-          <Welcome setStarted={setStarted} />
+          <Welcome setStarted={setStarted} setPb={setPb} />
           :
           <div className="App">
             <Pedalboard.Provider value={{ pb, setPb }}>

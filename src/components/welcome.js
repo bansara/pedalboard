@@ -1,6 +1,8 @@
 import React from 'react'
+import setup from '../utils/initialSetup'
 
-const Welcome = ({ setStarted }) => {
+
+const Welcome = ({ setStarted, setPb }) => {
   return (
     <div className='welcome'>
       <div className='welcomeForm'>
@@ -10,7 +12,10 @@ const Welcome = ({ setStarted }) => {
         <p><span className='red'>If you choose your laptop mic,</span> be sure to <span className='red'>use headphones,</span> or it will <span className='red'>feedback!</span></p>
         <button
           className='agree'
-          onClick={() => setStarted(true)}
+          onClick={() => {
+            setPb(setup())
+            setStarted(true)
+          }}
         >
           Rock and Roll
         </button>
