@@ -134,13 +134,7 @@ export const metal = {
 }
 
 export const postRock = {
-  graphicEQ: {
-    ...graphicEQ,
-    band250: 3,
-    band500: -6,
-    band1000: -3,
-    band2000: 3
-  },
+  graphicEQ,
   overdrive: {
     ...overdrive,
     on: true,
