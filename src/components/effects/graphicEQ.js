@@ -58,7 +58,7 @@ const InputEQ = ({ midi, preset }) => {
 
   return (
     <div className='rack'>
-      <div className='flexRow grow jSpAr'>
+      <div className='flexRow grow jSpAr aCenter wrap'>
         <Range name='62.5 Hz' min='-12' max='12' value={eq62} onChange={(e) => setEq(e.target.value, 'band62', setEq62)} />
         <Range name='125 Hz' min='-12' max='12' value={eq125} onChange={(e) => setEq(e.target.value, 'band125', setEq125)} />
         <Range name='250 Hz' min='-12' max='12' value={eq250} onChange={(e) => setEq(e.target.value, 'band250', setEq250)} />

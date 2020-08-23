@@ -79,8 +79,10 @@ const AnalogDelay = ({ midi, preset }) => {
 
   return (
     <div className='rack'>
-      <PowerBtn on={on} handlePower={handlePower} name='Delay' />
-      <div className='flexRow grow jSpAr'>
+      <div className='flexRow aCenter min'>
+        <PowerBtn on={on} handlePower={handlePower} name='Delay' />
+      </div>
+      <div className='flexRow grow jSpAr aCenter wrap'>
         <Range name='Time (ms)' min='0.05' max='1' value={dlyTime} onChange={(e) => setDelayTime(e.target.value)} />
         <Range name='Feedback' min='0' max='1' value={feedback} onChange={(e) => setFeedbackLevel(e.target.value)} />
         <Range name='Filter (Hz)' min='500' max='10000' value={filter} onChange={(e) => setFilterFreq(e.target.value)} />

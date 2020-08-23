@@ -71,8 +71,10 @@ const ClassicChorus = ({ midi, preset }) => {
 
   return (
     <div className='rack'>
-      <PowerBtn on={on} handlePower={handlePower} name='Chorus' />
-      <div className='flexRow grow jSpAr'>
+      <div className='flexRow aCenter min'>
+        <PowerBtn on={on} handlePower={handlePower} name='Chorus' />
+      </div>
+      <div className='flexRow grow jSpAr aCenter wrap'>
         <Range name='Rate (hz)' min='0.25' max='7' value={rate} onChange={(e) => setLfoRate(e.target.value)} />
         <Range name='Depth' min='1' max='10' value={depth} onChange={(e) => setLfoDepth(e.target.value)} />
         <Range name='Delay (ms)' min='1' max='30' value={delay} onChange={(e) => setDlyTime(e.target.value)} />

@@ -9,7 +9,6 @@ const StartContext = () => {
   console.log('pb', pb)
 
   const handleSetup = () => {
-
     navigator.mediaDevices.getUserMedia({ audio: true, video: false })
       .then(() => {
         navigator.mediaDevices.enumerateDevices()

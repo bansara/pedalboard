@@ -98,8 +98,8 @@ const ConvolutionReverb = ({ midi, preset }) => {
 
   return (
     <div className='rack'>
-      <PowerBtn on={on} handlePower={handlePower} name='Reverb' />
-      <div className='flexRow grow jSpAr aCenter'>
+      <div className='flexRow grow aCenter min'>
+        <PowerBtn on={on} handlePower={handlePower} name='Reverb' />
         <select
           style={{ color: 'var(--dark)', height: '2em' }}
           value={ir}
@@ -111,6 +111,8 @@ const ConvolutionReverb = ({ midi, preset }) => {
             ))
           }
         </select>
+      </div>
+      <div className='flexRow grow jSpAr aCenter wrap'>
         <Range name='Dry' min='0' max='1' value={dry} onChange={(e) => setDryLevel(e.target.value)} />
         <Range name='Wet' min='0' max='1' value={wet} onChange={(e) => setWetLevel(e.target.value)} />
         <Range name='Low cut (Hz)' min='50' max='500' value={lowCut} onChange={(e) => setLowCutFreq(e.target.value)} />

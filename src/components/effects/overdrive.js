@@ -77,8 +77,10 @@ const Distortion = ({ midi, preset }) => {
 
   return (
     <div className='rack'>
-      <PowerBtn on={on} handlePower={handlePower} name='Drive' />
-      <div className='flexRow grow jSpAr'>
+      <div className='flexRow aCenter min'>
+        <PowerBtn on={on} handlePower={handlePower} name='Drive' />
+      </div>
+      <div className='flexRow grow jSpAr aCenter wrap'>
         <Range name='Drive' min='1' max='11.11' value={drive} onChange={(e) => setDistortionLevel(e.target.value)} />
         <Range name='Mid Freq (Hz)' min='400' max='2000' value={midFreq} onChange={(e) => setMidFrequency(e.target.value)} />
         <Range name='Mid Level (dB)' min='-12' max='12' value={midGain} onChange={(e) => setMidLevel(e.target.value)} />
