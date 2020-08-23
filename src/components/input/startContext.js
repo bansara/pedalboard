@@ -25,7 +25,10 @@ const StartContext = () => {
             })
           })
       })
-      .catch(e => { throw e })
+      .catch(e => {
+        console.log(e)
+        throw e
+      })
 
   }
 
