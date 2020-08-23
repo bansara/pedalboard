@@ -14,6 +14,7 @@ const StartContext = () => {
       .then(() => {
         navigator.mediaDevices.enumerateDevices()
           .then((devices) => {
+            console.log(devices)
             const inputDevices = devices.filter((d) => d.kind === 'audioinput')
             setPb({
               ...pb,
@@ -24,6 +25,7 @@ const StartContext = () => {
             })
           })
       })
+      .catch(e => { throw e })
 
   }
 
