@@ -14,14 +14,10 @@ import { midiAccess } from './utils/midi'
 
 function App() {
   const [pb, setPb] = useState(null)
-  const [midiLoaded, setMidiLoaded] = useState(false)
   const [started, setStarted] = useState(false)
   useEffect(() => {
-    if (pb && !midiLoaded) {
-      midiAccess()
-      setMidiLoaded(true)
-    }
-  }, [pb, midiLoaded])
+    midiAccess()
+  }, [])
   return (
     <div>
       {

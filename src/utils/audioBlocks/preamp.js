@@ -21,6 +21,7 @@ class Preamp {
       x = i * 2 / samples - 1
       curve[i] = 2 * (x ** 2) / 1 + Math.abs(x)
     }
+    return curve
   }
 }
 
