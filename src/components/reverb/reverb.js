@@ -98,7 +98,7 @@ const ConvolutionReverb = ({ midi, preset }) => {
 
   return (
     <div className='rack'>
-      <div className='flexRow aCenter min'>
+      <div className='flexRow aCenter jCenter min'>
         <PowerBtn on={on} handlePower={handlePower} name='Reverb' />
         <select
           style={{ color: 'var(--dark)', height: '2em' }}
