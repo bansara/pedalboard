@@ -43,7 +43,7 @@ const Presets = ({ midi, setPreset }) => {
 
 
   const handleChange = () => {
-    const preset = presets.find(pre => pre.name === patch)
+    const preset = presets.find(pre => pre.name === patch.name)
     setPreset(preset.data)
     console.log(preset.data)
   }
