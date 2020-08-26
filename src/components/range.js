@@ -5,6 +5,7 @@ const Range = ({ onChange, value, min, max, name }) => {
     <div className='flexColumn aCenter jSpBtw'
       style={{
         height: '90px',
+        width: '115px',
         textAlign: 'center',
         margin: '0.5em'
       }}
