@@ -7,9 +7,9 @@ import Pedalboard from '../pedalboardContextProvider'
 const StartContext = () => {
   const { pb, setPb } = useContext(Pedalboard)
   console.log('pb', pb)
-
+  console.log(!!navigator.mediaDevices)
   const handleSetup = () => {
-    navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+    navigator.mediaDevices.getUserMedia({ audio: true })
       .then(() => {
         navigator.mediaDevices.enumerateDevices()
           .then((devices) => {
