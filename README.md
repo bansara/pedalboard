@@ -1,6 +1,6 @@
 Pedalboard JS
 
-Live demo at pedalboardjs.netlify.app
+Live demo at https://pedalboardjs.netlify.app
 
 SCAN INPUTS, then select your audio input source.
 
