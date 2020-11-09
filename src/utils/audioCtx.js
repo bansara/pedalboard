@@ -1,8 +1,6 @@
 const newContext = () => {
   const audioContext = window.AudioContext || window.webkitAudioContext
-  return new audioContext({
-    sampleRate: 44100
-  })
+  return new audioContext()
 }
 
 
