@@ -7,27 +7,28 @@ import Pedalboard from '../pedalboardContextProvider'
 const StartContext = () => {
   const { pb, setPb } = useContext(Pedalboard)
   console.log('pb', pb)
-
   const handleSetup = () => {
-    navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-      .then(() => {
-        navigator.mediaDevices.enumerateDevices()
-          .then((devices) => {
-            console.log(devices)
-            const inputDevices = devices.filter((d) => d.kind === 'audioinput')
-            setPb({
-              ...pb,
-              input: {
-                ...pb.input,
-                inputDevices
-              }
+    if (navigator.mediaDevices) {
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(() => {
+          navigator.mediaDevices.enumerateDevices()
+            .then((devices) => {
+              console.log(devices)
+              const inputDevices = devices.filter((d) => d.kind === 'audioinput')
+              setPb({
+                ...pb,
+                input: {
+                  ...pb.input,
+                  inputDevices
+                }
+              })
             })
-          })
-      })
-      .catch(e => {
-        console.log(e)
-        throw e
-      })
+        })
+        .catch(e => {
+          console.log(e)
+          throw e
+        })
+    }
 
   }
 

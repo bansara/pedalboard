@@ -31,10 +31,15 @@ class Reverb {
     // load impulse response from file
     let response = await fetch(this.filePath)
     let arraybuffer = await response.arrayBuffer()
-    // convolver.buffer = await this.context.decodeAudioData(arraybuffer)
-    this.context.decodeAudioData(arraybuffer, (buffer) => {
-      convolver.buffer = buffer
-    })
+    if (window.webkitAudioContext) {
+      // safari and iOS
+      this.context.decodeAudioData(arraybuffer, (buffer) => {
+        convolver.buffer = buffer
+      })
+    } else {
+      // all other browsers
+      convolver.buffer = await this.context.decodeAudioData(arraybuffer)
+    }
     // plug in the cables
     this.wet.connect(convolver)
     // reverb > eq > wet gain > output
