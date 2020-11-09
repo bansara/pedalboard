@@ -39,7 +39,7 @@ const Presets = ({ midi, setPreset }) => {
     },
   ]
 
-  const [patch, setPatch] = useState(presets[0])
+  const [patch, setPatch] = useState(presets[0].name)
 
 
   const handleChange = () => {

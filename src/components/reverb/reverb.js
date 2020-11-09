@@ -58,8 +58,8 @@ const ConvolutionReverb = ({ midi, preset }) => {
   const handlePower = () => {
     console.log('power')
     on
-      ? verb.input.disconnect(verb.wet)
-      : verb.input.connect(verb.wet)
+      ? verb.lowCut.disconnect(verb.highCut)
+      : verb.lowCut.connect(verb.highCut)
     setOn(!on)
   }
 

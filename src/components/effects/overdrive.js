@@ -18,8 +18,8 @@ const Distortion = ({ midi, preset }) => {
 
   const handlePower = () => {
     if (on) {
-      dist.input.connect(dist.output)
       dist.input.disconnect(dist.distortion)
+      dist.input.connect(dist.output)
       setOn(false)
     } else {
       dist.input.disconnect(dist.output)

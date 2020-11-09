@@ -13,15 +13,37 @@ class Reverb {
     // allows user to control dry and wet levels separately
     this.dry = createGain(this.context)
     this.wet = createGain(this.context, 0.5)
-    this.input.connect(this.dry)
-    this.input.connect(this.wet)
-    this.dry.connect(this.output)
+
+
+    if (window.webkitAudioContext) {
+      // iOS and Safari
+      this.inputSplit = context.createChannelSplitter(2)
+      this.outputMerge = context.createChannelMerger()
+      this.input.connect(this.inputSplit)
+      this.inputSplit.connect(this.dry, 0)
+      this.inputSplit.connect(this.wet, 0)
+    } else {
+      // everything else
+      this.input.connect(this.dry)
+      this.input.connect(this.wet)
+    }
+
 
     // shape the tone of the decay
     this.lowCut = createEq(context, 'highpass', 100)
     this.highCut = createEq(context, 'lowpass', 5000)
     this.lowCut.connect(this.highCut)
-    this.highCut.connect(this.output)
+
+    if (window.webkitAudioContext) {
+      // iOS and Safari
+      this.dry.connect(this.outputMerge, 0, 4)
+      this.highCut.connect(this.outputMerge, 0, 4)
+      this.outputMerge.connect(this.output)
+    } else {
+      // everything else
+      this.dry.connect(this.output)
+      this.highCut.connect(this.output)
+    }
 
     this.createReverb()
   }
@@ -35,7 +57,7 @@ class Reverb {
       // safari and iOS
       this.context.decodeAudioData(arraybuffer, (buffer) => {
         convolver.buffer = buffer
-      })
+      }, (e) => console.log(e))
     } else {
       // all other browsers
       convolver.buffer = await this.context.decodeAudioData(arraybuffer)

@@ -14,7 +14,7 @@ const setup = () => {
 
   const masterVol = createGain(context, 1)
   masterVol.connect(context.destination)
-
+  console.log('constraints', navigator.mediaDevices.getSupportedConstraints())
   // const analyser = createAnalyser(context)
   const inputGain = createGain(context, 1)
 
@@ -38,10 +38,10 @@ const setup = () => {
   // Power buttons connect/disconnect same nodes
   overdrive.input.disconnect(overdrive.distortion)
   overdrive.input.connect(overdrive.output)
-  chorus.input.disconnect(chorus.delay1)
-  chorus.input.disconnect(chorus.delay2)
-  delay.input.disconnect(delay.filter)
-  reverb.input.disconnect(reverb.wet)
+  chorus.wet.disconnect(chorus.delay1)
+  chorus.wet.disconnect(chorus.delay2)
+  delay.filter.disconnect(delay.delay)
+  reverb.lowCut.disconnect(reverb.highCut)
 
   return {
     ctx: context,

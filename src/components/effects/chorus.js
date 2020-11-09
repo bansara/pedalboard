@@ -16,11 +16,11 @@ const ClassicChorus = ({ midi, preset }) => {
 
   const handlePower = () => {
     if (on) {
-      cho.input.disconnect(cho.delay1)
-      cho.input.disconnect(cho.delay2)
+      cho.wet.disconnect(cho.delay1)
+      cho.wet.disconnect(cho.delay2)
     } else {
-      cho.input.connect(cho.delay1)
-      cho.input.connect(cho.delay2)
+      cho.wet.connect(cho.delay1)
+      cho.wet.connect(cho.delay2)
     }
     setOn(!on)
   }

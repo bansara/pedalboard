@@ -40,8 +40,8 @@ const AnalogDelay = ({ midi, preset }) => {
   }
   const handlePower = () => {
     on
-      ? dly.input.disconnect(dly.filter)
-      : dly.input.connect(dly.filter)
+      ? dly.filter.disconnect(dly.delay)
+      : dly.filter.connect(dly.delay)
 
     setOn(!on)
   }

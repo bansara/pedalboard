@@ -33,7 +33,9 @@ export const createEq = (context, type = 'peaking', freq = 1000, q = 1) => {
   const eq = context.createBiquadFilter()
   eq.type = type
   eq.frequency.value = freq
-  eq.Q.value = q
+  if (type = 'peaking') {
+    eq.Q.value = q
+  }
   return eq
 }
 
