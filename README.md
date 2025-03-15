@@ -2,10 +2,6 @@
 
 A powerful **Web Audio API** effects rack for guitarists, built with **React** and designed for real-time performance. **Pedalboard.js** offers a customizable signal chain of audio effects—**drive, chorus, delay, reverb**, and more—fully **controllable via a MIDI foot pedal**.
 
-🚀 **Live Demo**: [Pedalboard.js](https://pedalboardjs.netlify.app/)
-
-![Pedalboard.js Screenshot](./public/images/pedalboard.png)
-
 ---
 
 ## 🎛 Features
