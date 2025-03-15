@@ -4,7 +4,7 @@ A powerful **Web Audio API** effects rack for guitarists, built with **React** a
 
 🚀 **Live Demo**: [Pedalboard.js](https://pedalboardjs.netlify.app/)
 
-![Pedalboard.js Screenshot](https://raw.githubusercontent.com/bansara/pedalboard/main/public/images/pedalboard_ui.png)
+![Pedalboard.js Screenshot](./public/images/pedalboard.png)
 
 ---
 
