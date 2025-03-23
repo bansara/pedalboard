@@ -37,12 +37,9 @@ If using your laptop or phone mic, USE HEADPHONES to avoid feedback.
 
 ---
 
-## 🎵 Demo & Screenshots
+## 🎵 Demo
 
-**🎛 Live Demo:** [Pedalboard.js](https://pedalboardjs.netlify.app/)
-
-**Main UI:**  
-![Pedalboard.js Screenshot](./public/images/pedalboard.png)
+[![Watch the Demo](https://img.youtube.com/vi/ejlRMCp0X0M/hqdefault.jpg)](https://www.youtube.com/watch?v=ejlRMCp0X0M)
 
 ---
 
